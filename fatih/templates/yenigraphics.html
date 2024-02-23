@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Earthquake Line Chart</title>
+    <!-- Include Plotly JavaScript from CDN -->
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+</head>
+<body>
+    <h1>Earthquake Line Chart</h1>
+    <!-- Render the Plotly chart -->
+    <div id="plotly_chart">
+        <!-- Plotly chart will be inserted here -->
+    </div>
+    <script>
+        function updateChart() {
+            fetch('/graphics-data')
+                .then(response => response.json())
+                .then(data => {
+                    // Assuming 'data' is in the format needed for the plotly chart
+                    Plotly.newPlot('plotly_chart', data);
+                });
+        }
+
+        updateChart(); // Update immediately
+        setInterval(updateChart, 60000); // Update every 1 minute
+    </script>
+</body>
+</html>

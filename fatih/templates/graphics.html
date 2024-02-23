@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Earthquake Line Chart</title>
+    <!-- Include Plotly JavaScript from CDN -->
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+</head>
+<body>
+    <h1>Earthquake Line Chart</h1>
+    <!-- Render the Plotly chart -->
+    <div id="countdown"></div>
+    <div id="plotly_chart">
+        {{ plot | safe }}
+    </div>
+    <script>
+        function updateCountdown() {
+            fetch('/time-left')
+                .then(response => response.json())
+                .then(data => {
+                    const countdownElement = document.getElementById('countdown');
+                    countdownElement.innerHTML = `${data.minutes} minutes and ${data.seconds} seconds`;
+                    if (data.minutes === 0 && data.seconds === 0) {
+                        window.location.reload();
+                    }
+                });
+        }
+
+        updateCountdown(); // Update immediately
+        setInterval(updateCountdown, 1000); // Update every second
+    </script>
+</body>
+</html>
